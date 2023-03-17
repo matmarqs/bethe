@@ -23,7 +23,7 @@ def main():
     colors = [p['color'] for p in plt.rcParams['axes.prop_cycle']]
     W = '2'
     T = '0.05'
-    n, i = 0, 3
+    n, i = 0, 1
     U_old = '3.0'
     for arg in sys.argv[1:]:    # fillings files in sys.argv
         arg0 = arg[9:-11]
@@ -38,13 +38,16 @@ def main():
         data = np.loadtxt(arg, unpack=True)
         specfun = - data[2] / np.pi
         fill = filling(data[0], specfun, float(T))
-        plt.plot(data[0] + float(mu) * float(U) - float(U)/2, specfun, label=r'$n = %.3f$' % (fill), color=colors[i])
+        #plt.plot(data[0] + float(mu) * float(U) - float(U)/2, specfun, label=r'$n = %.3f$' % (fill), color=colors[i])
+        plt.plot(data[0], specfun, label=r'$n = %.3f$' % (fill), color=colors[i])
         plt.xlim([-2.5 * float(W), 2.5 * float(W)])
-        plt.xlabel(r'$\omega\prime = \omega + \mu - U/2$', fontsize=20)
-        plt.ylabel(r'$A(\omega\prime)$', fontsize=20)
+        #plt.xlabel(r'$\omega\prime = \omega + \mu - U/2$', fontsize=20)
+        #plt.ylabel(r'$A(\omega\prime)$', fontsize=20)
+        plt.xlabel(r'$\omega$', fontsize=20)
+        plt.ylabel(r'$A(\omega)$', fontsize=20)
         plt.legend(fontsize=12)
         plt.title(r'$W=%s$, $T=%s$, $U=%s$, $\mu=%s \, U$' % (W, T, U, mu))
-        plt.savefig('new_figs_omegaprime/specfun_U=%s_img-%d.png' % (U, n), dpi=300, format='png', bbox_inches='tight')
+        plt.savefig('new_figs_omegaprime/orig-specfun_U=%s_img-%d.png' % (U, n), dpi=300, format='png', bbox_inches='tight')
         plt.clf()
         n += 1
 
